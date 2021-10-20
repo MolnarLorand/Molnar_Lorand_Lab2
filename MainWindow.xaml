@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Molnar_Lorand_Lab2"
         mc:Ignorable="d"
-        Title="Virtual Doughnut Factory" Height="450" Width="800" ResizeMode="NoResize" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}">
+        Title="Virtual Doughnut Factory" Height="450" Width="800" ResizeMode="NoResize" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" Loaded="frm_Main_Loaded">
     <Grid>
         <Label x:Name="lblTitle" Content="Doughnuths - Bake and Sale" HorizontalAlignment="Center" Margin="0,46,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="24"/>
         <GroupBox x:Name="gbRaised" Header="Rised" Margin="141,111,466,199" FontWeight="Bold">
-            <Canvas>
+            <Canvas Margin="0,-13,0,13">
                 <Label x:Name="lblGlazedRised" Content="Glazed" Canvas.Top="15" FontWeight="Normal" Height="35" Width="58" RenderTransformOrigin="1.452,1.125"/>
                 <TextBox x:Name="txtGlazedRaised" Canvas.Left="90" Canvas.Top="23" Text="0" TextWrapping="Wrap" Width="64" Height="19" IsReadOnly="True" FontWeight="Normal"/>
                 <Label x:Name="lblSugarRised" Content="Sugar" Canvas.Top="58" FontWeight="Normal" Canvas.Left="4" Width="50"/>
@@ -27,9 +27,9 @@
             </Canvas>
         </GroupBox>
         <GroupBox x:Name="gbSale" Header="Current Sale" Margin="43,247,49,10" FontWeight="Bold">
-            <Canvas>
+            <Canvas Margin="0,-13,0,13">
                 <Label x:Name="lblQuantity" Content="Quantity" Canvas.Left="10" Canvas.Top="10" FontWeight="Normal"/>
-                <TextBox x:Name="txtQuantity" Canvas.Left="71" Canvas.Top="12" Text="" TextWrapping="Wrap" Width="36" Height="22"/>
+                <TextBox x:Name="txtQuantity" Canvas.Left="71" Canvas.Top="12" Text="" TextWrapping="Wrap" Width="36" Height="22" KeyUp="txtQuantity_KeyPress"/>
                 <Label x:Name="lblType" Content="Type" Canvas.Left="167" Canvas.Top="10" FontWeight="Normal"/>
                 <ComboBox x:Name="cmbType" Canvas.Left="220" Canvas.Top="12" Width="120"/>
                 <Label x:Name="lblPrice" Content="Price" Canvas.Left="367" Canvas.Top="10" FontWeight="Normal"/>
@@ -43,18 +43,21 @@
             </Canvas>
         </GroupBox>
         <Menu x:Name="mnuMain" HorizontalAlignment="Left" Height="21" VerticalAlignment="Top"
-Width="131" Margin="10,10,0,0">
+Width="230">
             <MenuItem Header="File">
-                <MenuItem Header="Exit"/>
+                <MenuItem Header="Exit" Click="exitToolStripMenuItem_Click"/>
             </MenuItem>
-            <MenuItem Header="_Doughnuts" Click="MenuItem_Click">
+            <MenuItem Header="_Doughnuts">
                 <MenuItem Header="Make">
                     <MenuItem Header="Raised">
-                        <MenuItem x:Name="glazedMenuItem" Header="Glazed"/>
-                        <MenuItem x:Name="sugarMenuItem" Header="Sugar"/>
+                        <MenuItem x:Name="glazedToolStripMenuItem" Header="Glazed"
+Click="glazedToolStripMenuItem_Click" IsCheckable="True"/>
+                        <MenuItem x:Name="sugarToolStripMenuItem" Header="Sugar"
+IsCheckable="True" Click="sugarToolStripMenuItem_Click"/>
                     </MenuItem>
                     <MenuItem Header="Filled"/>
                 </MenuItem>
+                <MenuItem x:Name="mnuStop" Header="Stop" Click="stopToolStripMenuItem_Click"/>
             </MenuItem>
         </Menu>
 

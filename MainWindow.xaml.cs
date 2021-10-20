@@ -25,9 +25,91 @@ namespace Molnar_Lorand_Lab2
             InitializeComponent();
         }
 
+        private DoughnutMachine myDoughnutMachine;
+
+        private int mRaisedGlazed;
+        private int mRaisedSugar;
+        private int mFilledLemon;
+        private int mFilledChocolate;
+        private int mFilledVanilla;
+
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
 
         }
+
+        private void frm_Main_Loaded(object sender, RoutedEventArgs e)
+        {
+            myDoughnutMachine = new DoughnutMachine(); // initializare
+            myDoughnutMachine.DoughnutComplete += new
+                DoughnutMachine.DoughnutCompleteDelegate(DoughnutCompleteHandler);
+        }
+
+        private void glazedToolStripMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            glazedToolStripMenuItem.IsChecked = true;
+            sugarToolStripMenuItem.IsChecked = false;
+            myDoughnutMachine.MakeDoughnuts(DoughnutType.Glazed);
+        }
+
+        private void sugarToolStripMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            sugarToolStripMenuItem.IsChecked = false;
+            glazedToolStripMenuItem.IsChecked = true;
+            myDoughnutMachine.MakeDoughnuts(DoughnutType.Sugar);
+        }
+        private void DoughnutCompleteHandler()
+        {
+            switch (myDoughnutMachine.Flavor)
+            {
+                case DoughnutType.Glazed:
+                    mRaisedGlazed++;
+                    txtGlazedRaised.Text = mRaisedGlazed.ToString();
+                    break;
+
+                case DoughnutType.Sugar:
+                    mRaisedSugar++;
+                    txtSugarRaised.Text = mRaisedSugar.ToString();
+                    break;
+
+                case DoughnutType.Chocolate:
+                    mFilledChocolate++;
+                    txtChocolateFilled.Text = mFilledChocolate.ToString();
+                    break;
+
+                case DoughnutType.Lemon:
+                    mFilledLemon++;
+                    txtLemonFilled.Text = mFilledLemon.ToString();
+                    break;
+
+                case DoughnutType.Vanilla:
+                    mFilledVanilla++;
+                    txtVanillaFilled.Text = mFilledVanilla.ToString();
+                    break;
+            }
+        }
+
+        private void stopToolStripMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            myDoughnutMachine.Enabled = false;
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close(); 
+            //eroare only assignment call increment decrement await
+            //and new object expressions can be used as a statement
+        }
+
+        private void txtQuantity_KeyPress(object sender, KeyEventArgs e)
+        {
+            if(!(e.Key>=Key.D0 && e.Key <= Key.D9))
+            {
+                MessageBox.Show("Numai cifre se pot introduce!", "Input Error", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+
+            }
+        }
+
     }
 }
